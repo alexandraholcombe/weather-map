@@ -3,13 +3,15 @@ var weatherKey = require('./../.env').apiKey;
 var latitude = 47.608013;
 var longitude = -122.335167;
 
+function convertTemp(temp) {
+  return temp * 9/5 - 459.67;
 
+}
 
 $(function(){
-  initMap();
-  $('#weather-location').submit(function(event){
-    event.preventDefault();
-    var city = $('#location').val();
+
+  function showWeather(city){
+
     $('#location').val("");
 
     $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + weatherKey)
@@ -18,27 +20,27 @@ $(function(){
       latitude = response.coord.lat;
       longitude = response.coord.lon;
 
-
-      function convertTemp(temp) {
-        return temp * 9/5 - 459.67;
-
-      }
-
-
       $('.city').text(city);
       $('.temp').text(parseInt(convertTemp(response.main.temp))+ "°");
       $('.max-temp').text(parseInt(convertTemp(response.main.temp_max)) + "°");
       $('.min-temp').text(parseInt(convertTemp(response.main.temp_min))+ "°");
       $('.humid').text(response.main.humidity + "%");
       $(".show-weather").fadeIn();
+
       initMap();
     })
 
     .fail(function(error) {
       $('.show-weather').text(error.responseJSON.message);
     });
+  }
 
-
+  initMap();
+  showWeather("Seattle, WA");
+  $('#weather-location').submit(function(event){
+    event.preventDefault();
+    var city = $('#location').val();
+    showWeather(city);
   });
 
   function initMap() {
