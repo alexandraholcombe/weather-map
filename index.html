@@ -4,20 +4,27 @@
     <script src="build/js/vendor.min.js"></script>
     <script type="text/javascript" src="build/js/app.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWk7-CXnjhrNvlrxkgZhKimljUHDxX6_E"></script>
+    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
     <link rel="stylesheet" href="build/css/styles.css" charset="utf-8">
     <title>Weather</title>
   </head>
   <body>
-    <div class="container">
-      <h1>Get Weather Conditions From Anywhere!</h1>
-      <label for="location">Enter a location:</label>
-      <input id="location" type="text">
-      <button class="btn-success" id="weather-location">Get Current Humidity!</button>
-      <div class="show-weather"></div>
-      <hr>
-      <div id="map">
-
-      </div>
+    <div class="top-bar">
+      <nav class="navbar navbar-fixed-top">
+        <form class="navbar-form navbar-left" id="weather-location">
+          <input class="form-control" id="location" type="text" placeholder="Enter a location">
+          <button type="submit" class="btn btn-success">Search</button>
+        </form>
+      </nav>
+    </div>
+    <div id="map">
+    </div>
+    <div class="show-weather">
+      <h1 class="city-text"><span class="city"></span></h1>
+      <h1 class="output-text">Temp: <span class="temp"></span></h1>
+      <h1 class="output-text">Max: <span class="max-temp"></span></h1>
+      <h1 class="output-text">Min: <span class="min-temp"></span></h1>
+      <h1 class="output-text">Humidity: <span class="humid"></span></h1>
     </div>
   </body>
 </html>
