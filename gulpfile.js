@@ -6,7 +6,7 @@ var uglify = require('gulp-uglify');
 var util = require('gulp-util');
 var del = require('del');
 var jshint = require('gulp-jshint');
-var buildProduction = utilities.env.production;
+var buildProduction = util.env.production;
 var lib = require('bower-files')({
   "overrides":{
     "bootstrap":{
@@ -68,7 +68,7 @@ gulp.task('clean', function(){
 });
 
 gulp.task('build', ['clean'], function(){
-  if(buildProduction) {
+  if (buildProduction) {
     gulp.start('minifyScripts');
   } else {
     gulp.start('jsBrowserify');
@@ -88,8 +88,7 @@ gulp.task('serve', ['build'], function() {
   gulp.watch(['js/*.js'], ['jsBuild']);
   gulp.watch(['bower.json'], ['bowerBuild']);
   gulp.watch(['*.html'], ['htmlBuild']);
-  gulp.watch(['scss/*.scss'], ['cssBuild']);
-
+  gulp.watch(["scss/*.scss"], ['cssBuild']);
 });
 
 gulp.task('jsBuild', ['jsBrowserify', 'jshint'], function(){
@@ -104,8 +103,8 @@ gulp.task('htmlBuild', function(){
   browserSync.reload();
 })
 
-gulp.task('cssBuild', function(){
-  return gulp.src('scss/*.scss')
+gulp.task('cssBuild', function() {
+  return gulp.src(['scss/*.scss'])
     .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(sourcemaps.write())
